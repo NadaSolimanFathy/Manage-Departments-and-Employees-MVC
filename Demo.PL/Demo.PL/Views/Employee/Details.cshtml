@@ -1,0 +1,53 @@
+﻿@model Employee
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Show Employee Details</h1>
+
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(emp=>emp.Name)</th>
+            <th>@Html.DisplayNameFor(emp=>emp.Address)</th>
+            <th>@Html.DisplayNameFor(emp=>emp.Email)</th>
+            <th>@Html.DisplayNameFor(emp=>emp.Salary)</th>
+            <th>@Html.DisplayNameFor(emp=>emp.HireDate)</th>
+            <th>@Html.DisplayNameFor(emp=>emp.IsActive)</th>
+            <th>@Html.DisplayNameFor(emp=>emp.DepartmentID)</th>
+
+
+            <th>Update</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+       
+            <tr>
+
+
+                <td>@Html.DisplayFor(emp=>emp.Name)</td>
+            <td>@Html.DisplayFor(emp=>emp.Address)</td>
+            <td>@Html.DisplayFor(emp=>emp.Email)</td>
+            <td>@Html.DisplayFor(emp=>emp.Salary)</td>
+            <td>@Html.DisplayFor(emp=>emp.HireDate.Day)-@Html.DisplayNameFor(emp=>emp.HireDate.Month)-@Html.DisplayNameFor(emp=>emp.HireDate.Year)</td>
+            <td>@Html.DisplayFor(emp=>emp.IsActive)</td>
+            <td>@Html.DisplayFor(emp=>emp.DepartmentID)</td>
+           
+                <td>
+                <a class="btn btn-warning" asp-controller="Employee" asp-action="Update" asp-route-id="@Model.Id">
+                        <i class="fas fa-edit"></i>Update
+                    </a>
+                <a asp-action="Index" class="btn btn-light">Back To List</a>
+
+                </td>
+               
+
+
+            </tr>
+        
+    </tbody>
+</table>
+

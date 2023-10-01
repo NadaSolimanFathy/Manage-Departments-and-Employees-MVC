@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+}
+@model Department
+
+@if (Model == null)
+{
+    <h1>Null Department</h1>
+
+}
+
+<h1>Create New Department</h1>
+
+<div class="row">
+    <div class="col-6">
+
+        <form asp-controller="Department" asp-action="Create">
+            <div class="form-group">
+                <label  asp-for="@Model.Code"  class="col-form-label"></label>
+                <input asp-for="@Model.Code" class="form-control" />
+                <span asp-validation-for="@Model.Code"class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.Name" class="col-form-label"></label>
+                <input asp-for="@Model.Name" class="form-control" />
+                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+            </div>
+
+            <br />
+           <input  type="submit" value="add" class="btn btn-primary"/>
+           <a asp-action="Index" class="btn btn-light">Back To List</a>
+        </form>
+
+    </div>
+
+
+</div>
+
+
+
