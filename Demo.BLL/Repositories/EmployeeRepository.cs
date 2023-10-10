@@ -19,6 +19,17 @@ namespace Demo.BLL.Repositories
             _context = context;
         }
 
+        public IEnumerable<Employee> Search(string name)
+        {
+            IEnumerable<Employee> Emps= _context.Employees.Where(emp=>emp.Name.Trim().ToLower().Contains(name.Trim().ToLower()));
+            return Emps;
+        }
+        public IEnumerable<Employee> GetAllEmployeesByDepartmentId(int deptId)
+        {
+            IEnumerable<Employee> Emps = _context.Employees.Where(emp => emp.DepartmentID==deptId);
+            return Emps;
+        }
+
         //public int Add(Employee employee)
         //{
         //    _context.Employees.Add(employee);
@@ -46,6 +57,8 @@ namespace Demo.BLL.Repositories
         //    return _context.SaveChanges();
 
         //}
+
+
 
 
     }

@@ -4,6 +4,7 @@ using Demo.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Demo.DAL.Migrations
 {
     [DbContext(typeof(MVCAppDbContext))]
-    partial class MVCAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231008102136_UpdateImage")]
+    partial class UpdateImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,7 +34,7 @@ namespace Demo.DAL.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateOfCreation")
                         .HasColumnType("datetime2");
@@ -43,9 +45,6 @@ namespace Demo.DAL.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Code")
-                        .IsUnique();
 
                     b.ToTable("Departments");
                 });

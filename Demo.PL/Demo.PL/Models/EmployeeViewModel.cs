@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Demo.DAL.Entities
+namespace Demo.PL.Models
 {
-    public class Employee:BaseEntity
+    public class EmployeeViewModel
     {
 
+
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(50)]
@@ -25,7 +22,9 @@ namespace Demo.DAL.Entities
         public DateTime HireDate { get; set; }
 
         public int DepartmentID { get; set; }
-        public Department Department { get; set; }
+
+        public IFormFile? Image { get; set; }
         public string? ImgUrl { get; set; }
+
     }
 }

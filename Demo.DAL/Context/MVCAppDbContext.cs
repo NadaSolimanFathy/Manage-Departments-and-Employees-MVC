@@ -19,6 +19,10 @@ namespace Demo.DAL.Context
             //optionsBuilder.UseSqlServer("server=.;database=MVCAppNada;integrated security=true");
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Department>().HasIndex(dept => dept.Code).IsUnique();
+        }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Employee> Employees { get; set; }
 

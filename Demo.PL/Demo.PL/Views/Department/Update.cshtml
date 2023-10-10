@@ -1,5 +1,4 @@
-﻿@model Department
-@{
+﻿@{
     ViewData["Title"] = "Update";
 }
 
@@ -9,18 +8,8 @@
     <div class="col-6">
 
         <form asp-controller="Department" asp-action="Update">
-            <div class="form-group">
-                <label asp-for="@Model.Code" class="col-form-label"></label>
-                <input asp-for="@Model.Code" class="form-control" />
-                <span asp-validation-for="@Model.Code" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="@Model.Name" class="col-form-label"></label>
-                <input asp-for="@Model.Name" class="form-control" />
-                <span asp-validation-for="@Model.Name" class="text-danger"></span>
-            </div>
-
+      
+            <partial name="PartialViews/CreateUpdatePartialView" />
             <br />
             <input type="submit" value="update" class="btn btn-warning" />
             <a asp-action="Index" class="btn btn-light">Back To List</a>

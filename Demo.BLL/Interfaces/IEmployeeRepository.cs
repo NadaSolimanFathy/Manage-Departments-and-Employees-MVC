@@ -15,5 +15,8 @@ namespace Demo.BLL.Interfaces
         //int Add(Employee employee);
         //int Update(Employee employee);
         //int Delete(Employee employee);
+        IEnumerable<Employee>Search(string name);
+        IEnumerable<Employee> GetAllEmployeesByDepartmentId(int deptId);
+
     }
 }

@@ -4,6 +4,7 @@ using Demo.BLL.Repositories;
 using Demo.DAL.Context;
 using Demo.DAL.Entities;
 using Demo.PL.Controllers;
+using Demo.PL.Mapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace Demo.PL
@@ -26,6 +27,7 @@ namespace Demo.PL
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddAutoMapper(map => map.AddProfile(new MappingProfile()));
 
 
             var app = builder.Build();

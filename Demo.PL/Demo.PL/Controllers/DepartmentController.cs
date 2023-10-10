@@ -1,8 +1,10 @@
-﻿using Demo.DAL.Context;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Demo.BLL.Interfaces;
 using Demo.DAL.Entities;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Demo.PL.Models;
+using Demo.PL.Helper;
+
 
 namespace Demo.PL.Controllers
 {
@@ -10,25 +12,23 @@ namespace Demo.PL.Controllers
     {
         private readonly IUnitOfWork unitOfWork;
 
-        //private readonly IDepartmentRepository departmentRepository;
         private readonly ILogger<DepartmentController> _logger;
+        private readonly IMapper mapper;
 
         public DepartmentController(
-            //IDepartmentRepository _departmentRepository,
             IUnitOfWork _unitOfWork,
-            ILogger<DepartmentController> logger)
+            ILogger<DepartmentController> logger,
+            IMapper _mapper)
         {
            unitOfWork = _unitOfWork;
-
-            //departmentRepository = _departmentRepository;
             _logger = logger;
+            mapper = _mapper;
         }
         public IActionResult Index()
         {
 
             var departments = unitOfWork.DepartmentRepository.GetAll();
             return View(departments);
-            //departments is the model that will be passed to the front-part to be rendered
 
         }
         [HttpGet]
@@ -36,23 +36,21 @@ namespace Demo.PL.Controllers
         {
 
             return View();
-            //departments is the model that will be passed to the front-part to be rendered
-
         }
+
         [HttpPost]
-        public IActionResult Create(Department department)
+        public IActionResult Create(DepartmentViewModel departmentVM)
         {
 
             if (ModelState.IsValid)
             {
-                _logger.LogInformation("Valid Objeccccccccccccccccccct");
+                var department=mapper.Map<Department>(departmentVM);
                 unitOfWork.DepartmentRepository.Add(department);
                 return RedirectToAction("Index");
 
 
             }
-            return (View(department));
-            //departments is the model that will be passed to the front-part to be rendered
+            return (View(departmentVM));
 
         }
 
@@ -62,18 +60,18 @@ namespace Demo.PL.Controllers
 
             if (id is null)
             {
-               // return NotFound();
                 return Redirect("/Home/Error");
             }
 
             var department = unitOfWork.DepartmentRepository.GetById(id);
+            var mappedDept=mapper.Map<DepartmentViewModel>(department);
             if(department == null)
             {
                 return View("/Home/Error");
 
             }
 
-            return View(department);
+            return View(mappedDept);
         }
 
 
@@ -85,19 +83,23 @@ namespace Demo.PL.Controllers
 
             if (id is null)
                return NotFound();
-            
+
+          
 
             var department = unitOfWork.DepartmentRepository.GetById(id);
             if (department == null)
                 return NotFound();
 
+            var mappedDept = mapper.Map< Department,DepartmentViewModel>(department);
 
-            return View(department);
+            
+            return View(mappedDept);
         }
         [HttpPost]
-        public IActionResult Update(int id,Department department)
+        public IActionResult Update(int id,DepartmentViewModel departmentVm)
         {
-            if(id!=department.Id)
+
+            if(id!=departmentVm.Id)
                 return NotFound();
 
 
@@ -105,7 +107,8 @@ namespace Demo.PL.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    unitOfWork.DepartmentRepository.Update(department);
+                    var mappedDept = mapper.Map<DepartmentViewModel, Department>(departmentVm);
+                    unitOfWork.DepartmentRepository.Update(mappedDept);
                     return RedirectToAction("Index");
                 }
             }
@@ -113,7 +116,7 @@ namespace Demo.PL.Controllers
             {
                 throw new Exception(ex.Message);
             }
-            return (View(department));
+            return (View(departmentVm));
         }
 
 
